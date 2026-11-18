@@ -3,76 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Listening | Rezhwan Majid</title>
+    <title>ActiveListening.exe | dev-rezhwan</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background-color: #000; 
+            background-color: #030712; 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
         }
 
+        /* Cyber Terminal Frame */
+        .terminal-frame {
+            position: relative;
+            width: 92vw;
+            height: 92vh;
+            border: 2px solid rgba(0, 229, 255, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0, 229, 255, 0.15);
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Slide Images with Smooth Zoom */
         .slide {
             position: absolute;
             top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            width: 100%; height: 100%;
             opacity: 0;
-            transition: opacity 0.8s ease-in-out;
+            transform: scale(1.08);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 2.5s ease-out;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            filter: brightness(0.9);
         }
         
-        .slide.active { opacity: 1; }
+        .slide.active { 
+            opacity: 1; 
+            transform: scale(1);
+        }
 
-        .progress-dots {
-            position: fixed;
-            bottom: 30px;
-            display: flex;
-            gap: 15px;
+        /* HUD Overlay Elements */
+        .hud-header {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            color: #00e5ff;
+            font-size: 14px;
+            letter-spacing: 2px;
             z-index: 10;
+            text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+            background: rgba(3, 7, 18, 0.7);
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 229, 255, 0.3);
         }
-        .dot {
-            width: 12px; height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
+
+        .hud-footer {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            color: #94a3b8;
+            font-size: 13px;
+            z-index: 10;
+            background: rgba(3, 7, 18, 0.7);
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .dot.active {
+
+        /* QR Code Box for Final Slide */
+        .qr-box {
+            position: absolute;
+            bottom: 70px;
+            left: 30px;
+            background: rgba(3, 7, 18, 0.85);
+            border: 1px solid #00e5ff;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 15;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        .qr-box.show { display: block; animation: fadeIn 0.8s ease; }
+        .qr-box img { width: 90px; height: 90px; display: block; border-radius: 4px; }
+        .qr-box span { color: #fff; font-size: 10px; margin-top: 5px; display: block; letter-spacing: 1px; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Progress Bar */
+        .progress-line {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 3px;
             background: #00e5ff;
+            transition: width 0.5s ease;
             box-shadow: 0 0 10px #00e5ff;
-            transform: scale(1.3);
+            z-index: 20;
         }
     </style>
 </head>
 <body>
 
-    <!-- دڵنیابەرەوە کە ناوەکانیان 1.jpg, 2.jpg, 3.jpg, 4.jpg ە -->
-    <div class="slide active" style="background-image: url('1.jpg');"></div>
-    <div class="slide" style="background-image: url('2.jpg');"></div>
-    <div class="slide" style="background-image: url('3.jpg');"></div>
-    <div class="slide" style="background-image: url('4.jpg');"></div>
+    <div class="terminal-frame">
+        <div class="hud-header">SYS_EXEC // REZHWAN_MAJID (GRADE 10-A)</div>
+        
+        <!-- ٤ وێنە سەرنجڕاکێشەکەی سمینارەکە -->
+        <div class="slide active" style="background-image: url('1.jpg');"></div>
+        <div class="slide" style="background-image: url('2.jpg');"></div>
+        <div class="slide" style="background-image: url('3.jpg');"></div>
+        <div class="slide" style="background-image: url('4.jpg');"></div>
 
-    <div class="progress-dots">
-        <div class="dot active"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+        <!-- QR Code بۆ لینکی فەرمی لە کۆتا سلایددا -->
+        <div class="qr-box" id="qrContainer">
+            <!-- لێرەدا QR Code بۆ لینکەکەت دروستکراوە -->
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dev-rezhwan.github.io" alt="Scan QR">
+            <span>SCAN LIVE</span>
+        </div>
+
+        <div class="hud-footer" id="slideCounter">SLIDE: 01 / 04 [PRESS SPACE]</div>
+        <div class="progress-line" id="progressBar" style="width: 25%;"></div>
     </div>
 
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
-        const dots = document.querySelectorAll('.dot');
+        const counter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
+        const qrContainer = document.getElementById('qrContainer');
 
         function updateSlider() {
             slides.forEach((slide, index) => {
                 slide.classList.toggle('active', index === currentSlide);
-                dots[index].classList.toggle('active', index === currentSlide);
             });
+
+            counter.textContent = `SLIDE: 0${currentSlide + 1} / 04 [PRESS SPACE]`;
+            progressBar.style.width = `${((currentSlide + 1) / 4) * 100}%`;
+
+            // نیشاندانی QR Code تەنیا لە سلایدی کۆتاییدا
+            if (currentSlide === 3) {
+                qrContainer.classList.add('show');
+            } else {
+                qrContainer.classList.remove('show');
+            }
         }
 
         function nextSlide() {
@@ -86,7 +170,9 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            }
         });
 
         document.body.addEventListener('click', nextSlide);
