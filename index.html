@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActiveListening.exe | dev-rezhwan</title>
+    <title>ActiveListening.exe | Rezhwan Majid (Grade 10-A)</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background-color: #030712; 
+            background-color: #02040a; 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
@@ -16,14 +16,14 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
-        /* Cyber Terminal Frame */
-        .terminal-frame {
+        /* Holographic Container with Cyber Glow */
+        .cyber-frame {
             position: relative;
-            width: 92vw;
-            height: 92vh;
-            border: 2px solid rgba(0, 229, 255, 0.4);
-            border-radius: 12px;
-            box-shadow: 0 0 40px rgba(0, 229, 255, 0.15);
+            width: 95vw;
+            height: 94vh;
+            border: 2px solid rgba(0, 243, 255, 0.6);
+            border-radius: 16px;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.25), inset 0 0 30px rgba(0, 243, 255, 0.1);
             background: #000;
             overflow: hidden;
             display: flex;
@@ -31,109 +31,130 @@
             align-items: center;
         }
 
-        /* Slide Images with Smooth Zoom */
+        /* Scanline Effect for Cyberpunk Vibe */
+        .cyber-frame::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 30;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Advanced Dynamic Zoom & Pan Animation */
         .slide {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             opacity: 0;
-            transform: scale(1.08);
-            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 2.5s ease-out;
+            transform: scale(1.15) rotate(0deg);
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 4s cubic-bezier(0.1, 0.9, 0.2, 1);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            filter: brightness(0.9);
+            filter: contrast(1.1) brightness(0.95);
         }
         
         .slide.active { 
             opacity: 1; 
-            transform: scale(1);
+            transform: scale(1) rotate(0deg);
+            animation: subtlePulse 8s infinite alternate ease-in-out;
         }
 
-        /* HUD Overlay Elements */
-        .hud-header {
-            position: absolute;
-            top: 20px;
-            left: 25px;
-            color: #00e5ff;
-            font-size: 14px;
-            letter-spacing: 2px;
-            z-index: 10;
-            text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
-            background: rgba(3, 7, 18, 0.7);
-            padding: 8px 15px;
-            border-radius: 6px;
-            border: 1px solid rgba(0, 229, 255, 0.3);
+        @keyframes subtlePulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.04); }
         }
 
-        .hud-footer {
+        /* HUD Military / Hacker Overlays */
+        .hud-top-left {
             position: absolute;
-            bottom: 20px;
-            right: 25px;
-            color: #94a3b8;
+            top: 25px; left: 30px;
+            color: #00f3ff;
             font-size: 13px;
-            z-index: 10;
-            background: rgba(3, 7, 18, 0.7);
-            padding: 8px 15px;
+            letter-spacing: 3px;
+            z-index: 40;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.8);
+            background: rgba(2, 4, 10, 0.85);
+            padding: 10px 18px;
             border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #00f3ff;
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+            border-right: 1px solid rgba(0, 243, 255, 0.3);
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
         }
 
-        /* QR Code Box for Final Slide */
-        .qr-box {
+        .hud-bottom-right {
             position: absolute;
-            bottom: 70px;
-            left: 30px;
-            background: rgba(3, 7, 18, 0.85);
-            border: 1px solid #00e5ff;
-            padding: 12px;
-            border-radius: 8px;
+            bottom: 25px; right: 30px;
+            color: #a5b4fc;
+            font-size: 12px;
+            z-index: 40;
+            background: rgba(2, 4, 10, 0.85);
+            padding: 10px 18px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
+        }
+
+        /* Live QR Code Box with Pulse Effect */
+        .qr-hologram {
+            position: absolute;
+            bottom: 80px; left: 30px;
+            background: rgba(2, 4, 10, 0.9);
+            border: 1px solid #00f3ff;
+            padding: 14px;
+            border-radius: 10px;
             text-align: center;
-            z-index: 15;
-            backdrop-filter: blur(10px);
+            z-index: 40;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
             display: none;
+            animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-        .qr-box.show { display: block; animation: fadeIn 0.8s ease; }
-        .qr-box img { width: 90px; height: 90px; display: block; border-radius: 4px; }
-        .qr-box span { color: #fff; font-size: 10px; margin-top: 5px; display: block; letter-spacing: 1px; }
+        .qr-hologram.show { display: block; }
+        .qr-hologram img { width: 100px; height: 100px; display: block; border-radius: 4px; border: 1px solid #fff; }
+        .qr-hologram span { color: #00f3ff; font-size: 11px; margin-top: 8px; display: block; letter-spacing: 2px; font-weight: bold; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.7) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* Progress Bar */
-        .progress-line {
+        /* Neon Progress Line */
+        .energy-line {
             position: absolute;
             bottom: 0; left: 0;
-            height: 3px;
-            background: #00e5ff;
-            transition: width 0.5s ease;
-            box-shadow: 0 0 10px #00e5ff;
-            z-index: 20;
+            height: 4px;
+            background: linear-gradient(90deg, #00f3ff, #10b981);
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 15px #00f3ff;
+            z-index: 50;
         }
     </style>
 </head>
 <body>
 
-    <div class="terminal-frame">
-        <div class="hud-header">SYS_EXEC // REZHWAN_MAJID (GRADE 10-A)</div>
+    <div class="cyber-frame">
+        <div class="hud-top-left">SYS_CORE // REZHWAN MAJID [GRADE 10-A]</div>
         
-        <!-- ٤ وێنە سەرنجڕاکێشەکەی سمینارەکە -->
-        <div class="slide active" style="background-image: url('1.jpg');"></div>
-        <div class="slide" style="background-image: url('2.jpg');"></div>
-        <div class="slide" style="background-image: url('3.jpg');"></div>
-        <div class="slide" style="background-image: url('4.jpg');"></div>
+        <!-- وێنە پڕۆفیشناڵەکان بە تیشکی ئۆنلاین -->
+        <div class="slide active" style="background-image: url('https://image.pollinations.ai/prompt/A%203D%20glowing%20cybernetic%20human%20ear%20capturing%20digital%20soundwaves,%20glowing%20neon%20cyan%20and%20gold%20theme,%20dark%20background');"></div>
+        <div class="slide" style="background-image: url('https://image.pollinations.ai/prompt/A%203D%20glowing%20human%20brain%20processing%20digital%20data%20particles,%20glowing%20neon%20cyan%20and%20gold%20cybernetic%20theme,%20dark%20background');"></div>
+        <div class="slide" style="background-image: url('https://image.pollinations.ai/prompt/A%20futuristic%20holographic%20magnifying%20glass%20scanning%20digital%20soundwaves,%20glowing%20neon%20cyan%20and%20gold%20cybernetic%20theme');"></div>
+        <div class="slide" style="background-image: url('https://image.pollinations.ai/prompt/Two%20glowing%20abstract%20human%20profiles%20facing%20each%20other%20connected%20by%20a%20bright%20digital%20light%20beam,%20glowing%20neon%20cyan%20and%20gold%20cybernetic%20theme');"></div>
 
-        <!-- QR Code بۆ لینکی فەرمی لە کۆتا سلایددا -->
-        <div class="qr-box" id="qrContainer">
-            <!-- لێرەدا QR Code بۆ لینکەکەت دروستکراوە -->
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dev-rezhwan.github.io" alt="Scan QR">
-            <span>SCAN LIVE</span>
+        <!-- QR Code بۆ سکان کردن لە کۆتا سلایددا -->
+        <div class="qr-hologram" id="qrContainer">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dev-rezhwan.github.io" alt="Live QR">
+            <span>LIVE SCAN LINK</span>
         </div>
 
-        <div class="hud-footer" id="slideCounter">SLIDE: 01 / 04 [PRESS SPACE]</div>
-        <div class="progress-line" id="progressBar" style="width: 25%;"></div>
+        <div class="hud-bottom-right" id="slideCounter">STATUS: NODE 01/04 [PRESS SPACE]</div>
+        <div class="energy-line" id="progressBar" style="width: 25%;"></div>
     </div>
 
     <script>
@@ -148,10 +169,9 @@
                 slide.classList.toggle('active', index === currentSlide);
             });
 
-            counter.textContent = `SLIDE: 0${currentSlide + 1} / 04 [PRESS SPACE]`;
+            counter.textContent = `STATUS: NODE 0${currentSlide + 1}/04 [PRESS SPACE]`;
             progressBar.style.width = `${((currentSlide + 1) / 4) * 100}%`;
 
-            // نیشاندانی QR Code تەنیا لە سلایدی کۆتاییدا
             if (currentSlide === 3) {
                 qrContainer.classList.add('show');
             } else {
