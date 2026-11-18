@@ -3,110 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Listening | Rezhwan Majid (Grade 10-A)</title>
+    <title>Active Listening Seminar | Rezhwan Majid (10-A)</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Vazirmatn:wght@400;700&display=swap');
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background-color: #000; 
+            background-color: #010206; 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh;
+            font-family: 'ShareTechMono', monospace;
+            color: #00f3ff;
         }
 
+        /* Ultimate Stage */
+        .stage {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0a1128 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Scanline */
+        .stage::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        /* Slide Container */
         .slide {
             position: absolute;
             top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            width: 100%; height: 100%;
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 50px 80px;
+            z-index: 10;
+        }
+        .slide.active { opacity: 1; }
+
+        /* Left Side: Crystal Clear Image */
+        .image-box {
+            flex: 1;
+            height: 80vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
-        .slide.active { opacity: 1; }
-
-        .slide img {
-            max-width: 95vw;
-            max-height: 95vh;
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            border-radius: 8px;
-            box-shadow: 0 0 35px rgba(0, 243, 255, 0.25);
+            border-radius: 12px;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.3);
+            border: 2px solid rgba(0, 243, 255, 0.4);
+            transform: scale(0.95);
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .slide.active img {
+            transform: scale(1);
         }
 
+        /* Right Side: Extremely Clear Bilingual Explanations */
+        .content-box {
+            flex: 1;
+            padding-left: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 243, 255, 0.15);
+            border: 1px solid #00f3ff;
+            color: #00f3ff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .title-en {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .title-ku {
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 24px;
+            color: #10b981;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .desc-text {
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            background: rgba(2, 6, 23, 0.8);
+            border-left: 4px solid #00f3ff;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* HUD Headers */
         .hud-header {
             position: absolute;
-            top: 20px; left: 25px;
+            top: 25px; left: 30px;
             color: #00f3ff;
-            font-family: monospace;
             font-size: 13px;
             letter-spacing: 2px;
-            z-index: 50;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 6px 12px;
-            border: 1px solid rgba(0, 243, 255, 0.4);
+            z-index: 60;
+            background: rgba(2, 6, 15, 0.9);
+            padding: 8px 16px;
             border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
         }
 
         .hud-footer {
             position: absolute;
-            bottom: 20px; right: 25px;
+            bottom: 25px; right: 30px;
             color: #a5b4fc;
-            font-family: monospace;
             font-size: 13px;
-            z-index: 50;
-            background: rgba(0, 0, 0, 0.85);
-            padding: 6px 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 60;
+            background: rgba(2, 6, 15, 0.9);
+            padding: 8px 16px;
             border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
         }
 
+        /* QR Code on Final Slide */
         .qr-box {
             position: absolute;
-            bottom: 70px; left: 25px;
-            background: rgba(0, 0, 0, 0.95);
+            bottom: 75px; left: 30px;
+            background: rgba(2, 6, 15, 0.95);
             border: 1px solid #00f3ff;
-            padding: 10px;
+            padding: 12px;
             border-radius: 6px;
             text-align: center;
-            z-index: 50;
+            z-index: 60;
             display: none;
+            animation: popUp 0.5s ease forwards;
         }
         .qr-box.show { display: block; }
-        .qr-box img { width: 85px; height: 85px; display: block; box-shadow: none; max-width: none; max-height: none; }
-        .qr-box span { color: #00f3ff; font-family: monospace; font-size: 10px; margin-top: 4px; display: block; }
+        .qr-box img { width: 90px; height: 90px; border-radius: 2px; }
+        .qr-box span { color: #00f3ff; font-size: 10px; margin-top: 5px; display: block; font-weight: bold; }
+
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.6) translateY(15px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 3px;
+            background: #00f3ff;
+            box-shadow: 0 0 12px #00f3ff;
+            transition: width 0.5s ease;
+            z-index: 70;
+        }
+
+        /* Responsive for mobile screens */
+        @media(max-width: 900px) {
+            .slide { flex-direction: column; padding: 20px; justify-content: center; }
+            .image-box { height: 45vh; width: 100%; }
+            .content-box { padding-left: 0; width: 100%; margin-top: 15px; }
+            .title-en { font-size: 20px; }
+            .title-ku { font-size: 16px; }
+            .desc-text { font-size: 13px; padding: 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="hud-header">SYS_CORE // REZHWAN MAJID [GRADE 10-A]</div>
+    <div class="stage">
+        <div class="hud-header">REZHWAN MAJID // GRADE 10-A (ACTIVE LISTENING SEMINAR)</div>
+        
+        <!-- Slide 1: Receive -->
+        <div class="slide active">
+            <div class="image-box"><img src="1.jpg" alt="Receive"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 01</div>
+                <div class="title-en">1. RECEIVE (The Ear)</div>
+                <div class="title-ku">وەرگرتن: کۆکردنەوەی شەپۆلە دەنگییەکان</div>
+                <div class="desc-text">
+                    گوێی ئێمە وەک وەرگرێکی زیرەک کاردەکات. لەم قۆناغەدا دەبێت بە تەواوی کراوە بین و بێ هیچ ژاوەژاوێکی مێشکی، سەرنج بخەینە سەر دەنگی بەرامبەر.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2: Understand -->
+        <div class="slide">
+            <div class="image-box"><img src="2.jpg" alt="Understand"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 02</div>
+                <div class="title-en">2. UNDERSTAND (The Brain)</div>
+                <div class="title-ku">تێگەیشتن: شیکردنەوەی زانیارییەکان</div>
+                <div class="desc-text">
+                    مێشکمان وەک پرۆسێسەر کاردەکات؛ لێرەدا تەنیا وشەکان نابینین، بەڵکو هەوڵ دەدەین مەبەستی سەرەکی و ناوەڕۆکی قسەکانی کەسی بەرامبەر شی بکەینەوە.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Evaluate -->
+        <div class="slide">
+            <div class="image-box"><img src="3.jpg" alt="Evaluate"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 03</div>
+                <div class="title-en">3. EVALUATE (The Magnifier)</div>
+                <div class="title-ku">هەڵسەنگاندن: پشکنین و لێکدانەوە</div>
+                <div class="desc-text">
+                    وەک پشکێنەرێک (بەرکەیس)، ڕاستییەکان هەڵدەسەنگێنین، جیاوازی نێوان ڕاستی و هەستەکان دەكەین، و بڕیاری گونجاو لەسەر زانیارییەکان دەدەین.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Respond -->
+        <div class="slide">
+            <div class="image-box"><img src="4.jpg" alt="Respond"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 04</div>
+                <div class="title-en">4. RESPOND (The Connection)</div>
+                <div class="title-ku">وەڵامدانەوە: دروستکردنی پردی متمانە</div>
+                <div class="desc-text">
+                    وێستگەی کۆتایی! پێدانی کاردانەوە (Feedback) و جوڵەی گونجاوی جەستە بۆ ئەوەی پیشانی بدەیت کە تۆ بەڕاستی لەگەڵیدا بوویت و پەیوەندیتان دروست بووە.
+                </div>
+            </div>
+        </div>
 
-    <!-- ٤ وێنە ڕەسەنەکە بە کوالێتی بەرز -->
-    <div class="slide active"><img src="1.jpg" alt="Slide 1"></div>
-    <div class="slide"><img src="2.jpg" alt="Slide 2"></div>
-    <div class="slide"><img src="3.jpg" alt="Slide 3"></div>
-    <div class="slide"><img src="4.jpg" alt="Slide 4"></div>
+        <!-- Live QR Code -->
+        <div class="qr-box" id="qrContainer">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dev-rezhwan.github.io" alt="QR">
+            <span>LIVE SCAN</span>
+        </div>
 
-    <div class="qr-box" id="qrContainer">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dev-rezhwan.github.io" alt="QR">
-        <span>LIVE SCAN</span>
+        <div class="hud-footer" id="slideCounter">NODE 01/04 [PRESS SPACE]</div>
+        <div class="progress-bar" id="progressBar" style="width: 25%;"></div>
     </div>
-
-    <div class="hud-footer" id="slideCounter">NODE 01/04 [PRESS SPACE]</div>
 
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const counter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
         const qrContainer = document.getElementById('qrContainer');
 
         function updateSlider() {
             slides.forEach((slide, index) => {
                 slide.classList.toggle('active', index === currentSlide);
             });
+
             counter.textContent = `NODE 0${currentSlide + 1}/04 [PRESS SPACE]`;
+            progressBar.style.width = `${((currentSlide + 1) / 4) * 100}%`;
 
             if (currentSlide === 3) {
                 qrContainer.classList.add('show');
@@ -126,7 +302,9 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            }
         });
 
         document.body.addEventListener('click', nextSlide);
