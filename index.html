@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Listening | Image Presentation</title>
+    <title>Active Listening | Rezhwan Majid</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -15,7 +15,6 @@
             height: 100vh;
         }
 
-        /* Image Slider Container */
         .slide {
             position: absolute;
             top: 0; left: 0;
@@ -29,7 +28,6 @@
         
         .slide.active { opacity: 1; }
 
-        /* Minimalist Progress Indicator */
         .progress-dots {
             position: fixed;
             bottom: 30px;
@@ -52,13 +50,12 @@
 </head>
 <body>
 
-    <!-- دڵنیابەرەوە کە ئەم ٤ وێنەیەت لەناو ڕیپۆزیتۆرییەکەدا داناوە و ناوەکانیان 1.jpg, 2.jpg, 3.jpg, 4.jpg ە -->
+    <!-- دڵنیابەرەوە کە ناوەکانیان 1.jpg, 2.jpg, 3.jpg, 4.jpg ە -->
     <div class="slide active" style="background-image: url('1.jpg');"></div>
     <div class="slide" style="background-image: url('2.jpg');"></div>
     <div class="slide" style="background-image: url('3.jpg');"></div>
     <div class="slide" style="background-image: url('4.jpg');"></div>
 
-    <!-- Dots -->
     <div class="progress-dots">
         <div class="dot active"></div>
         <div class="dot"></div>
@@ -66,7 +63,6 @@
         <div class="dot"></div>
     </div>
 
-    <!-- JavaScript to change images -->
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
@@ -83,23 +79,16 @@
             if (currentSlide < slides.length - 1) {
                 currentSlide++;
                 updateSlider();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
+            } else {
+                currentSlide = 0;
                 updateSlider();
             }
         }
 
-        // Navigate with Keyboard
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        // Navigate with Click
         document.body.addEventListener('click', nextSlide);
     </script>
 </body>
