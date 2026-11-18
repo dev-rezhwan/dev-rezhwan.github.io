@@ -1,355 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Active Listening | Rezhwan Majid</title>
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;900&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>Active Listening | Image Presentation</title>
     <style>
-        /* CSS Reset & Variables */
-        :root {
-            --bg-color: #030712;
-            --primary: #00e5ff; /* Cyan */
-            --secondary: #f59e0b; /* Amber/Gold */
-            --text-light: #f8fafc;
-            --text-muted: #94a3b8;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --card-border: rgba(0, 229, 255, 0.2);
-        }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
-            font-family: 'Montserrat', sans-serif;
-            overflow: hidden;
-            width: 100vw;
+        body { 
+            background-color: #000; 
+            overflow: hidden; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
             height: 100vh;
         }
 
-        /* Ambient Background Glow */
-        .ambient-glow {
-            position: fixed;
-            top: 50%; left: 50%;
-            width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, rgba(3, 7, 18, 0) 60%);
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* Layout Grid */
-        .presentation-container {
-            width: 100%; height: 100%;
-            display: flex; flex-direction: column;
-            position: relative;
-        }
-
-        /* Top Header */
-        header {
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .author-badge {
-            font-size: 1rem; font-weight: 700; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--primary);
-            display: flex; align-items: center; gap: 10px;
-        }
-        .author-badge span { color: var(--text-muted); font-size: 0.8rem; }
-        .slide-counter { font-size: 1.2rem; font-weight: 900; color: var(--text-muted); }
-
-        /* Slides Area */
-        main {
-            flex-grow: 1;
-            position: relative;
-            overflow: hidden;
-        }
-
+        /* Image Slider Container */
         .slide {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            padding: 40px 10%;
-            display: flex; flex-direction: column; justify-content: center;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
             opacity: 0;
-            transform: scale(0.95) translateY(30px);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-        .slide.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            pointer-events: auto;
-        }
-
-        /* Typography */
-        h1 {
-            font-size: 5vw; font-weight: 900;
-            line-height: 1.1; margin-bottom: 10px;
-            text-transform: uppercase;
-            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        .highlight { color: var(--primary); }
-        h2 { font-size: 3.5vw; color: var(--primary); margin-bottom: 30px; font-weight: 700; }
         
-        .eng-text { font-size: 2.5vw; font-weight: 600; margin-bottom: 15px; line-height: 1.4; }
-        .pho-text { font-size: 1.8vw; color: var(--primary); font-family: 'Noto Sans Arabic', sans-serif; direction: rtl; margin-bottom: 15px; font-weight: 400; opacity: 0.9;}
-        .kur-text { font-size: 2vw; color: var(--secondary); font-family: 'Noto Sans Arabic', sans-serif; direction: rtl; font-weight: 700; line-height: 1.5; border-right: 4px solid var(--secondary); padding-right: 15px; }
+        .slide.active { opacity: 1; }
 
-        /* Glass Cards */
-        .glass-box {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            max-width: 90%;
-            margin: 0 auto;
-        }
-
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; width: 100%; }
-        .card {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 15px; padding: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-top: 4px solid var(--primary);
-        }
-
-        /* Lists */
-        .step-item {
-            margin-bottom: 25px;
-            display: flex; flex-direction: column;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 15px;
-        }
-        .step-en { font-size: 2vw; font-weight: 700; color: #fff; }
-        .step-en span { color: var(--primary); font-weight: 900; margin-right: 15px; }
-        .step-ku { font-size: 1.5vw; color: var(--secondary); font-family: 'Noto Sans Arabic', sans-serif; direction: rtl; margin-top: 10px; }
-
-        /* Footer & Progress */
-        footer {
-            padding: 20px 40px;
-            display: flex; justify-content: space-between; align-items: center;
+        /* Minimalist Progress Indicator */
+        .progress-dots {
+            position: fixed;
+            bottom: 30px;
+            display: flex;
+            gap: 15px;
             z-index: 10;
         }
-        .progress-bar {
-            width: 300px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden;
+        .dot {
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
         }
-        .progress-fill {
-            height: 100%; background: var(--primary); width: 0%; transition: width 0.4s ease;
+        .dot.active {
+            background: #00e5ff;
+            box-shadow: 0 0 10px #00e5ff;
+            transform: scale(1.3);
         }
-        .controls button {
-            background: transparent; border: 1px solid rgba(255,255,255,0.2);
-            color: #fff; padding: 10px 20px; font-size: 1rem; border-radius: 30px;
-            cursor: pointer; transition: 0.3s; font-family: 'Montserrat', sans-serif; font-weight: 600;
-            margin-left: 10px;
-        }
-        .controls button:hover { background: var(--primary); color: #000; border-color: var(--primary); }
-
-        /* Helper for Title Slide */
-        .center-all { text-align: center; align-items: center; }
     </style>
 </head>
 <body>
 
-    <div class="ambient-glow"></div>
+    <!-- دڵنیابەرەوە کە ئەم ٤ وێنەیەت لەناو ڕیپۆزیتۆرییەکەدا داناوە و ناوەکانیان 1.jpg, 2.jpg, 3.jpg, 4.jpg ە -->
+    <div class="slide active" style="background-image: url('1.jpg');"></div>
+    <div class="slide" style="background-image: url('2.jpg');"></div>
+    <div class="slide" style="background-image: url('3.jpg');"></div>
+    <div class="slide" style="background-image: url('4.jpg');"></div>
 
-    <div class="presentation-container">
-        
-        <!-- Header -->
-        <header>
-            <div class="author-badge">
-                Rezhwan Majid <span>// Grade 10-A</span>
-            </div>
-            <div class="slide-counter"><span id="current-num">01</span> / <span id="total-num">08</span></div>
-        </header>
-
-        <!-- Slides -->
-        <main>
-            <!-- Slide 1: Cover -->
-            <div class="slide active center-all">
-                <div style="margin-bottom: 30px;">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
-                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-                        <line x1="12" y1="19" x2="12" y2="22"></line>
-                    </svg>
-                </div>
-                <h1>The Power of <br><span class="highlight">Active Listening</span></h1>
-                <div class="pho-text" style="text-align: center; margin-top: 10px;">(زە پاوەر ئۆڤ ئاکتیڤ لیستنینگ)</div>
-                <div class="kur-text" style="text-align: center; border: none; font-size: 2.5vw; margin-top: 10px;">هێزی گوێگرتنی چالاک</div>
-            </div>
-
-            <!-- Slide 2: The Hook -->
-            <div class="slide">
-                <div class="glass-box">
-                    <div class="eng-text">Are you truly listening to others, or are you just waiting for your turn to speak?</div>
-                    <div class="pho-text">(ئار یو تروولی لیستنینگ تو ئەزەرز، ئۆر ئار یو جەست وەیتینگ فۆر یۆر تێرن تو سپیک؟)</div>
-                    <div class="kur-text">ئایا بەڕاستی گوێ لە کەسانی تر دەگریت، یان تەنیا چاوەڕێی سەرەی خۆت دەکەیت بۆ قسەکردن؟</div>
-                </div>
-            </div>
-
-            <!-- Slide 3: Definition -->
-            <div class="slide">
-                <h2>1. Definition (پێناسە)</h2>
-                <div class="glass-box">
-                    <div class="eng-text">Active listening is the conscious effort to understand the COMPLETE message, not just hearing words.</div>
-                    <div class="pho-text">(ئاکتیڤ لیستنینگ ئز زە کۆنشەس ئێفۆرت تو ئەندەرستاند زە کۆمپلیت مێسج، نۆت جەست هیەرینگ وۆردز)</div>
-                    <div class="kur-text">گوێگرتنی چالاک ئەو هەوڵە ئاگادارانەیە بۆ تێگەیشتن لە تەواوی پەیامەکە، نەک تەنیا بیستنی وشەکان.</div>
-                </div>
-            </div>
-
-            <!-- Slide 4: Comparison -->
-            <div class="slide">
-                <h2>2. Hearing vs. Listening</h2>
-                <div class="grid-2">
-                    <div class="card" style="border-top-color: #ef4444;">
-                        <h3 style="color: #ef4444; font-size: 2.5vw; margin-bottom: 20px;">Hearing (بیستن)</h3>
-                        <div class="eng-text" style="font-size: 1.8vw;">A physical process. Happens automatically.</div>
-                        <div class="pho-text" style="font-size: 1.4vw;">(ئە فیزیکاڵ پڕۆسێس. هاپنز ئۆتۆماتیکلی)</div>
-                        <div class="kur-text" style="font-size: 1.5vw;">پڕۆسەیەکی فیزیکییە و بە ڕێکەوت ڕوودەدات.</div>
-                    </div>
-                    <div class="card" style="border-top-color: #10b981;">
-                        <h3 style="color: #10b981; font-size: 2.5vw; margin-bottom: 20px;">Listening (گوێگرتن)</h3>
-                        <div class="eng-text" style="font-size: 1.8vw;">A mental process. Requires focus and intent.</div>
-                        <div class="pho-text" style="font-size: 1.4vw;">(ئە مێنتاڵ پڕۆسێس. ڕیکوایەرز فۆکەس ئەند ئینتێنت)</div>
-                        <div class="kur-text" style="font-size: 1.5vw;">پڕۆسەیەکی مێشکییە و پێویستی بە تەرکیز و مەبەستە.</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 5: The Stages -->
-            <div class="slide">
-                <h2>3. The Four Core Stages</h2>
-                <div class="glass-box">
-                    <div class="step-item">
-                        <div class="step-en"><span>01</span> Receive (Pay Attention)</div>
-                        <div class="step-ku">وەرگرتن (پێدانی سەرنجی تەواو بە کەسەکە)</div>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-en"><span>02</span> Understand (Decode Meaning)</div>
-                        <div class="step-ku">تێگەیشتن (لێکدانەوەی مانای قسەکان)</div>
-                    </div>
-                    <div class="step-item">
-                        <div class="step-en"><span>03</span> Evaluate (Analyze Facts)</div>
-                        <div class="step-ku">هەڵسەنگاندن (شیکردنەوەی زانیاری و ڕاستییەکان)</div>
-                    </div>
-                    <div class="step-item" style="border:none; padding:0; margin:0;">
-                        <div class="step-en"><span>04</span> Respond (Provide Feedback)</div>
-                        <div class="step-ku">وەڵامدانەوە (پێدانی کاردانەوەی گونجاو)</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 6: Barriers -->
-            <div class="slide">
-                <h2>4. Barriers (ڕێگرەکان)</h2>
-                <div class="glass-box">
-                    <div class="eng-text">External noise, personal bias, and constant interruptions destroy the listening process.</div>
-                    <div class="pho-text">(ئێکستێرناڵ نۆیز، پێرسۆناڵ بایەس، ئەند کۆنستانت ئینتەڕەپشنز دیسترۆی زە لیستنینگ پڕۆسێس)</div>
-                    <div class="kur-text">ژاوەژاوی دەرەکی، لایەنگری کەسی، و قسەپێبڕینی بەردەوام، پڕۆسەی گوێگرتن لەناو دەبەن.</div>
-                </div>
-            </div>
-
-            <!-- Slide 7: Solutions -->
-            <div class="slide">
-                <h2>5. How to Master It?</h2>
-                <div class="glass-box">
-                    <div class="eng-text">Maintain eye contact, ask open questions, and DO NOT interrupt the speaker.</div>
-                    <div class="pho-text">(مەینتەین ئای کۆنتاکت، ئاسک ئۆپن کوێسچنز، ئەند دو نۆت ئینتەڕەپت زە سپیکەر)</div>
-                    <div class="kur-text">پەیوەندی چاو بپارێزە، پرسیاری کراوە بکە، و قسە بە کەسی بەرامبەر مەپچڕێنە.</div>
-                </div>
-            </div>
-
-            <!-- Slide 8: Conclusion -->
-            <div class="slide center-all">
-                <h1 style="color: #10b981; text-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);">Thank You!</h1>
-                <div class="eng-text" style="margin-top: 20px;">Active listening builds unshakeable trust.</div>
-                <div class="pho-text">(ئاکتیڤ لیستنینگ بیڵدس ئانشەیکەبڵ ترەست)</div>
-                <div class="kur-text" style="border: none; padding: 0; text-align: center;">گوێگرتنی چالاک متمانەیەکی بەهێز دروست دەکات.</div>
-                
-                <div style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; width: 50%;">
-                    <div class="eng-text" style="font-size: 2vw; color: var(--primary);">Are there any questions?</div>
-                    <div class="kur-text" style="border: none; padding: 0; text-align: center; color: var(--text-muted);">هیچ پرسیارێکتان هەیە؟</div>
-                </div>
-            </div>
-
-        </main>
-
-        <!-- Footer -->
-        <footer>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress"></div>
-            </div>
-            <div class="controls">
-                <button onclick="prevSlide()">❮ Prev</button>
-                <button onclick="nextSlide()">Next ❯</button>
-            </div>
-        </footer>
-
+    <!-- Dots -->
+    <div class="progress-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
 
-    <!-- JavaScript for Presentation Logic -->
+    <!-- JavaScript to change images -->
     <script>
-        const slides = document.querySelectorAll('.slide');
-        const progressFill = document.getElementById('progress');
-        const currentNum = document.getElementById('current-num');
-        const totalNum = document.getElementById('total-num');
         let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
 
-        totalNum.textContent = String(slides.length).padStart(2, '0');
-
-        function updateUI() {
-            // Update Slides
+        function updateSlider() {
             slides.forEach((slide, index) => {
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
-                }
+                slide.classList.toggle('active', index === currentSlide);
+                dots[index].classList.toggle('active', index === currentSlide);
             });
-
-            // Update Progress Bar
-            const progress = ((currentSlide) / (slides.length - 1)) * 100;
-            progressFill.style.width = progress + '%';
-
-            // Update Counter
-            currentNum.textContent = String(currentSlide + 1).padStart(2, '0');
         }
 
         function nextSlide() {
             if (currentSlide < slides.length - 1) {
                 currentSlide++;
-                updateUI();
+                updateSlider();
             }
         }
 
         function prevSlide() {
             if (currentSlide > 0) {
                 currentSlide--;
-                updateUI();
+                updateSlider();
             }
         }
 
-        // Keyboard Navigation
+        // Navigate with Keyboard
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                prevSlide();
-            }
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        // Initialize
-        updateUI();
+        // Navigate with Click
+        document.body.addEventListener('click', nextSlide);
     </script>
 </body>
 </html>
