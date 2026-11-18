@@ -3,69 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ActiveListening.exe | Rezhwan Majid (VIP SYSTEM)</title>
+    <title>Active Listening Seminar | Rezhwan Majid (10-A)</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Vazirmatn:wght@400;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            background-color: #010205; 
+            background-color: #010206; 
             overflow: hidden; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'ShareTechMono', monospace;
             color: #00f3ff;
         }
 
-        /* Ultimate Cyber Frame */
-        .cyber-frame {
+        /* Ultimate Stage */
+        .stage {
             position: relative;
-            width: 96vw;
-            height: 94vh;
-            border: 2px solid rgba(0, 243, 255, 0.4);
-            border-radius: 8px;
-            box-shadow: 0 0 50px rgba(0, 243, 255, 0.15), inset 0 0 40px rgba(0, 243, 255, 0.1);
-            background: radial-gradient(circle at center, #050b14 0%, #000000 100%);
-            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0a1128 0%, #000000 100%);
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
-        /* Moving Scanline */
-        .scanline {
+        /* Scanline */
+        .stage::after {
+            content: " ";
+            display: block;
             position: absolute;
-            width: 100%;
-            height: 10px;
-            background: rgba(0, 243, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
-            opacity: 0.5;
-            animation: scan 4s linear infinite;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background-size: 100% 4px;
             z-index: 50;
             pointer-events: none;
-        }
-        @keyframes scan {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-
-        /* Background Grid */
-        .grid-bg {
-            position: absolute;
-            width: 200%; height: 200%;
-            background-image: linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: 1;
-            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
-            animation: moveGrid 15s linear infinite;
             opacity: 0.3;
-        }
-        @keyframes moveGrid {
-            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
-            100% { transform: perspective(500px) rotateX(60deg) translateY(40px) translateZ(-200px); }
         }
 
         /* Slide Container */
@@ -76,204 +52,243 @@
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
+            padding: 50px 80px;
             z-index: 10;
         }
         .slide.active { opacity: 1; }
 
-        /* The Image */
-        .slide img {
-            max-width: 75%;
-            max-height: 80%;
+        /* Left Side: Crystal Clear Image */
+        .image-box {
+            flex: 1;
+            height: 80vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-box img {
+            max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            border-radius: 4px;
-            box-shadow: 0 0 40px rgba(0, 243, 255, 0.3);
-            filter: contrast(1.1) brightness(0.9);
-            position: relative;
-            z-index: 15;
-            transform: scale(0.9);
+            border-radius: 12px;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.3);
+            border: 2px solid rgba(0, 243, 255, 0.4);
+            transform: scale(0.95);
+            transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .slide.active img {
-            animation: zoomLock 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        @keyframes zoomLock {
-            0% { transform: scale(0.8); filter: blur(10px); }
-            100% { transform: scale(1); filter: blur(0px); }
+            transform: scale(1);
         }
 
-        /* Targeting Brackets [ ] around image */
-        .target-brackets {
-            position: absolute;
-            width: 80%; height: 85%;
-            border: 2px solid transparent;
+        /* Right Side: Extremely Clear Bilingual Explanations */
+        .content-box {
+            flex: 1;
+            padding-left: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             z-index: 20;
-            pointer-events: none;
-        }
-        .slide.active .target-brackets {
-            animation: targetLock 1.5s ease-out forwards;
-        }
-        .target-brackets::before, .target-brackets::after {
-            content: ''; position: absolute; width: 40px; height: 40px; border-color: #00f3ff; border-style: solid; transition: all 0.3s;
-        }
-        .target-brackets::before { top: 0; left: 0; border-width: 4px 0 0 4px; }
-        .target-brackets::after { bottom: 0; right: 0; border-width: 0 4px 4px 0; }
-        
-        .target-brackets .br-tr, .target-brackets .br-bl {
-            position: absolute; width: 40px; height: 40px; border-color: #00f3ff; border-style: solid;
-        }
-        .target-brackets .br-tr { top: 0; right: 0; border-width: 4px 4px 0 0; }
-        .target-brackets .br-bl { bottom: 0; left: 0; border-width: 0 0 4px 4px; }
-
-        @keyframes targetLock {
-            0% { width: 100%; height: 100%; opacity: 0; }
-            50% { opacity: 1; border-color: rgba(0, 243, 255, 0.2); }
-            100% { width: 78%; height: 83%; opacity: 1; }
         }
 
-        /* Dynamic Typing Info Panel (Explains what is on screen) */
-        .info-panel {
-            position: absolute;
-            top: 15%; right: 5%;
-            width: 300px;
-            background: rgba(2, 6, 15, 0.85);
+        .badge {
+            display: inline-block;
+            background: rgba(0, 243, 255, 0.15);
             border: 1px solid #00f3ff;
-            border-left: 5px solid #00f3ff;
-            padding: 20px;
-            z-index: 30;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-            backdrop-filter: blur(5px);
-        }
-        .info-title { font-size: 22px; font-weight: bold; color: #fff; margin-bottom: 10px; text-shadow: 0 0 5px #fff; }
-        .info-target { font-size: 14px; color: #10b981; margin-bottom: 15px; letter-spacing: 1px; }
-        .info-desc { font-size: 13px; color: #a5b4fc; line-height: 1.5; min-height: 60px;}
-        .cursor { display: inline-block; width: 8px; height: 15px; background: #00f3ff; animation: blink 1s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        /* HUD Overlays */
-        .hud-top-left {
-            position: absolute; top: 20px; left: 20px; font-size: 14px; letter-spacing: 2px; z-index: 40;
-            background: rgba(0,0,0,0.5); padding: 5px 10px; border: 1px solid #00f3ff;
-        }
-        .hud-bottom-right {
-            position: absolute; bottom: 20px; right: 20px; font-size: 14px; z-index: 40;
-            background: rgba(0,0,0,0.5); padding: 5px 10px; border: 1px solid rgba(255,255,255,0.2);
+            color: #00f3ff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            width: fit-content;
         }
 
-        /* QR Code */
-        .qr-hologram {
-            position: absolute; bottom: 60px; left: 20px; background: rgba(0,0,0,0.8);
-            border: 1px solid #00f3ff; padding: 10px; text-align: center; z-index: 40; display: none;
+        .title-en {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
-        .qr-hologram.show { display: block; animation: qrPop 0.5s ease forwards; }
-        .qr-hologram img { width: 100px; height: 100px; border: 1px solid #fff; }
-        .qr-hologram span { display: block; font-size: 10px; margin-top: 5px; color: #00f3ff; }
-        @keyframes qrPop { 0% { transform: scale(0); } 100% { transform: scale(1); } }
 
+        .title-ku {
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 24px;
+            color: #10b981;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .desc-text {
+            font-family: 'Vazirmatn', sans-serif;
+            font-size: 16px;
+            color: #cbd5e1;
+            line-height: 1.8;
+            background: rgba(2, 6, 23, 0.8);
+            border-left: 4px solid #00f3ff;
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* HUD Headers */
+        .hud-header {
+            position: absolute;
+            top: 25px; left: 30px;
+            color: #00f3ff;
+            font-size: 13px;
+            letter-spacing: 2px;
+            z-index: 60;
+            background: rgba(2, 6, 15, 0.9);
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .hud-footer {
+            position: absolute;
+            bottom: 25px; right: 30px;
+            color: #a5b4fc;
+            font-size: 13px;
+            z-index: 60;
+            background: rgba(2, 6, 15, 0.9);
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 1px;
+        }
+
+        /* QR Code on Final Slide */
+        .qr-box {
+            position: absolute;
+            bottom: 75px; left: 30px;
+            background: rgba(2, 6, 15, 0.95);
+            border: 1px solid #00f3ff;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            z-index: 60;
+            display: none;
+            animation: popUp 0.5s ease forwards;
+        }
+        .qr-box.show { display: block; }
+        .qr-box img { width: 90px; height: 90px; border-radius: 2px; }
+        .qr-box span { color: #00f3ff; font-size: 10px; margin-top: 5px; display: block; font-weight: bold; }
+
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.6) translateY(15px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 3px;
+            background: #00f3ff;
+            box-shadow: 0 0 12px #00f3ff;
+            transition: width 0.5s ease;
+            z-index: 70;
+        }
+
+        /* Responsive for mobile screens */
+        @media(max-width: 900px) {
+            .slide { flex-direction: column; padding: 20px; justify-content: center; }
+            .image-box { height: 45vh; width: 100%; }
+            .content-box { padding-left: 0; width: 100%; margin-top: 15px; }
+            .title-en { font-size: 20px; }
+            .title-ku { font-size: 16px; }
+            .desc-text { font-size: 13px; padding: 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="cyber-frame">
-        <div class="grid-bg"></div>
-        <div class="scanline"></div>
+    <div class="stage">
+        <div class="hud-header">REZHWAN MAJID // GRADE 10-A (ACTIVE LISTENING SEMINAR)</div>
         
-        <div class="hud-top-left">SYS_CORE // REZHWAN_MAJID [10-A]</div>
-
-        <!-- Slide 1: EAR -->
-        <div class="slide active" data-title="STAGE 1: RECEIVE" data-target="TARGET: AUDITORY SYSTEM" data-desc="Capturing raw soundwaves. System requires 100% focus. Do not process yet, just receive the data.">
-            <div class="target-brackets"><div class="br-tr"></div><div class="br-bl"></div></div>
-            <img src="1.jpg" alt="Ear">
+        <!-- Slide 1: Receive -->
+        <div class="slide active">
+            <div class="image-box"><img src="1.jpg" alt="Receive"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 01</div>
+                <div class="title-en">1. RECEIVE (The Ear)</div>
+                <div class="title-ku">وەرگرتن: کۆکردنەوەی شەپۆلە دەنگییەکان</div>
+                <div class="desc-text">
+                    گوێی ئێمە وەک وەرگرێکی زیرەک کاردەکات. لەم قۆناغەدا دەبێت بە تەواوی کراوە بین و بێ هیچ ژاوەژاوێکی مێشکی، سەرنج بخەینە سەر دەنگی بەرامبەر.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 2: Understand -->
+        <div class="slide">
+            <div class="image-box"><img src="2.jpg" alt="Understand"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 02</div>
+                <div class="title-en">2. UNDERSTAND (The Brain)</div>
+                <div class="title-ku">تێگەیشتن: شیکردنەوەی زانیارییەکان</div>
+                <div class="desc-text">
+                    مێشکمان وەک پرۆسێسەر کاردەکات؛ لێرەدا تەنیا وشەکان نابینین، بەڵکو هەوڵ دەدەین مەبەستی سەرەکی و ناوەڕۆکی قسەکانی کەسی بەرامبەر شی بکەینەوە.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Evaluate -->
+        <div class="slide">
+            <div class="image-box"><img src="3.jpg" alt="Evaluate"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 03</div>
+                <div class="title-en">3. EVALUATE (The Magnifier)</div>
+                <div class="title-ku">هەڵسەنگاندن: پشکنین و لێکدانەوە</div>
+                <div class="desc-text">
+                    وەک پشکێنەرێک (بەرکەیس)، ڕاستییەکان هەڵدەسەنگێنین، جیاوازی نێوان ڕاستی و هەستەکان دەكەین، و بڕیاری گونجاو لەسەر زانیارییەکان دەدەین.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 4: Respond -->
+        <div class="slide">
+            <div class="image-box"><img src="4.jpg" alt="Respond"></div>
+            <div class="content-box">
+                <div class="badge">STAGE 04</div>
+                <div class="title-en">4. RESPOND (The Connection)</div>
+                <div class="title-ku">وەڵامدانەوە: دروستکردنی پردی متمانە</div>
+                <div class="desc-text">
+                    وێستگەی کۆتایی! پێدانی کاردانەوە (Feedback) و جوڵەی گونجاوی جەستە بۆ ئەوەی پیشانی بدەیت کە تۆ بەڕاستی لەگەڵیدا بوویت و پەیوەندیتان دروست بووە.
+                </div>
+            </div>
         </div>
 
-        <!-- Slide 2: BRAIN -->
-        <div class="slide" data-title="STAGE 2: UNDERSTAND" data-target="TARGET: NEURAL NETWORK" data-desc="Decoding incoming data particles. Processing meaning behind the words. Analyzing speaker's intent.">
-            <div class="target-brackets"><div class="br-tr"></div><div class="br-bl"></div></div>
-            <img src="2.jpg" alt="Brain">
-        </div>
-
-        <!-- Slide 3: MAGNIFIER -->
-        <div class="slide" data-title="STAGE 3: EVALUATE" data-target="TARGET: ANALYTICS CORE" data-desc="Scanning digital facts. Judging the information. Separating truth from emotion.">
-            <div class="target-brackets"><div class="br-tr"></div><div class="br-bl"></div></div>
-            <img src="3.jpg" alt="Magnifier">
-        </div>
-
-        <!-- Slide 4: CONNECTION -->
-        <div class="slide" data-title="STAGE 4: RESPOND" data-target="TARGET: SYNC LINK" data-desc="Establishing connection. Providing visual and verbal feedback. Trust bridge activated.">
-            <div class="target-brackets"><div class="br-tr"></div><div class="br-bl"></div></div>
-            <img src="4.jpg" alt="Connection">
-        </div>
-
-        <!-- Typewriter Info Panel -->
-        <div class="info-panel" id="infoPanel">
-            <div class="info-title" id="typeTitle"></div>
-            <div class="info-target" id="typeTarget"></div>
-            <div class="info-desc"><span id="typeDesc"></span><span class="cursor"></span></div>
-        </div>
-
-        <!-- QR Code -->
-        <div class="qr-hologram" id="qrContainer">
+        <!-- Live QR Code -->
+        <div class="qr-box" id="qrContainer">
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://dev-rezhwan.github.io" alt="QR">
             <span>LIVE SCAN</span>
         </div>
 
-        <div class="hud-bottom-right" id="slideCounter">NODE 01/04 [SPACE]</div>
+        <div class="hud-footer" id="slideCounter">NODE 01/04 [PRESS SPACE]</div>
+        <div class="progress-bar" id="progressBar" style="width: 25%;"></div>
     </div>
 
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const counter = document.getElementById('slideCounter');
+        const progressBar = document.getElementById('progressBar');
         const qrContainer = document.getElementById('qrContainer');
-        
-        // Typing Elements
-        const typeTitle = document.getElementById('typeTitle');
-        const typeTarget = document.getElementById('typeTarget');
-        const typeDesc = document.getElementById('typeDesc');
-        let typeTimeout;
-
-        function typeWriter(text, element, speed, callback) {
-            element.innerHTML = '';
-            let i = 0;
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    typeTimeout = setTimeout(type, speed);
-                } else if (callback) {
-                    callback();
-                }
-            }
-            type();
-        }
-
-        function triggerSlideData() {
-            clearTimeout(typeTimeout);
-            typeTitle.innerHTML = ''; typeTarget.innerHTML = ''; typeDesc.innerHTML = '';
-            
-            const activeSlide = slides[currentSlide];
-            const titleText = activeSlide.getAttribute('data-title');
-            const targetText = activeSlide.getAttribute('data-target');
-            const descText = activeSlide.getAttribute('data-desc');
-
-            // Sequential Typing
-            typeWriter(titleText, typeTitle, 30, () => {
-                typeWriter(targetText, typeTarget, 20, () => {
-                    typeWriter(descText, typeDesc, 15);
-                });
-            });
-        }
 
         function updateSlider() {
             slides.forEach((slide, index) => {
                 slide.classList.toggle('active', index === currentSlide);
             });
-            counter.textContent = `NODE 0${currentSlide + 1}/04 [SPACE]`;
-            
-            if (currentSlide === 3) qrContainer.classList.add('show');
-            else qrContainer.classList.remove('show');
 
-            triggerSlideData();
+            counter.textContent = `NODE 0${currentSlide + 1}/04 [PRESS SPACE]`;
+            progressBar.style.width = `${((currentSlide + 1) / 4) * 100}%`;
+
+            if (currentSlide === 3) {
+                qrContainer.classList.add('show');
+            } else {
+                qrContainer.classList.remove('show');
+            }
         }
 
         function nextSlide() {
@@ -287,12 +302,12 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            }
         });
-        document.body.addEventListener('click', nextSlide);
 
-        // Init first slide
-        triggerSlideData();
+        document.body.addEventListener('click', nextSlide);
     </script>
 </body>
 </html>
