@@ -1,0 +1,56 @@
+{
+  "project": "Active Listening Presentation",
+  "presenter": "Rezhwan Majid",
+  "grade": "10-A",
+  "total_slides": 4,
+  "slides": [
+    {
+      "slide_number": 1,
+      "id": "receive",
+      "title_en": "01. RECEIVE",
+      "title_ku": "وەرگرتن (گوێچکە)",
+      "it_analogy": "Digital Sensor / Soundwave Receiver",
+      "duration_min": 2.5,
+      "script_en": "Stage one is Receive. In this 3D image, the ear works like a digital sensor that receives soundwaves clearly from the speaker. We must remove distractions: put phones away, look at the speaker, and stay quiet.",
+      "script_ku": "قۆناغی یەکەم وەرگرتنە. لەم وێنە 3Dـیەدا، گوێ وەک هەستەوەرێکی دیجیتاڵی کار دەکات کە شەپۆلە دەنگییەکان بە ڕوونی لە قسەکەر وەردەگرێت. دەبێت سەرقاڵی لاببەین و بە ڕوونی گوێ بگرین.",
+      "gesture_ku": "بە دەستی ڕاست ئاماژە بە گوێچکە و شەپۆلەکان بکە؛ لە کاتی باسی لابردنی سەرقاڵی بە دەست ئاماژەی لابردن بکە.",
+      "source_image": "input_file_22.png"
+    },
+    {
+      "slide_number": 2,
+      "id": "understand",
+      "title_en": "02. UNDERSTAND",
+      "title_ku": "تێگەیشتن (مێشک)",
+      "it_analogy": "Data Processor / Neural Network",
+      "duration_min": 2.5,
+      "script_en": "Stage two is Understand. Hearing is just physical sound, but understanding happens in the brain, which acts like a data processor. The brain processes words, tone, and body signals to get the real meaning.",
+      "script_ku": "قۆناغی دووەم تێگەیشتنە. بیستن تەنیا دەنگێکی جەستەییە، بەڵام تێگەیشتن لە مێشکدا ڕوودەدات کە وەک پرۆسێسەری داتا کار دەکات و وشە و تۆن و ئاماژەکانی جەستە لێکدەداتەوە.",
+      "gesture_ku": "بە هێواشی پەنجە بۆ لای سەر و تیشکەکانی مێشک ببە بۆ نیشاندانی پرۆسێسکردنی زانیاری.",
+      "source_image": "input_file_23.png"
+    },
+    {
+      "slide_number": 3,
+      "id": "evaluate",
+      "title_en": "03. EVALUATE",
+      "title_ku": "هەڵسەنگاندن (زەڕبین)",
+      "it_analogy": "Smart Data Scanner / Binary & Wave Inspector",
+      "duration_min": 2.5,
+      "script_en": "Stage three is Evaluate. Like this smart magnifier scanning binary data and waves, we examine the message carefully. We separate facts from feelings and do not jump to fast conclusions.",
+      "script_ku": "قۆناغی سێیەم هەڵسەنگاندنە. وەک ئەم زەڕبینە زیرەکەی داتای باینەری و شەپۆل دەپشکنێت، پەیامەکە بە وردی دەپشکنین و ڕاستی لە هەست جیادەکەینەوە.",
+      "gesture_ku": "لە کاتی جیاکردنەوەی ڕاستی و هەست هەردوو دەست بە هێواشی لە یەکتر دوور بخەرەوە.",
+      "source_image": "input_file_24.png"
+    },
+    {
+      "slide_number": 4,
+      "id": "respond",
+      "title_en": "04. RESPOND",
+      "title_ku": "وەڵامدانەوە (پەیوەندی)",
+      "it_analogy": "Linked Transceivers / Bidirectional Signal",
+      "duration_min": 2.5,
+      "script_en": "Stage four is Respond. The two transceivers share linked waves; in real life, we respond with clear feedback. Nodding, asking good questions, or restating main points shows we listened and builds trust.",
+      "script_ku": "قۆناغی چوارەم وەڵامدانەوەیە. دوو ئامێرەکە شەپۆلی پەیوەست بەکاردەهێنن؛ لە ژیانی ڕاستیشدا بە فیدباکی ڕوون وەڵام دەدەینەوە و متمانە دروست دەکەین.",
+      "gesture_ku": "بە نەرمی سەرت بلەقێنە و دەست بجوڵێنە بۆ نیشاندانی پەیوەندی و کاردانەوەی دوولایەنە.",
+      "source_image": "input_file_25.png"
+    }
+  ]
+}
